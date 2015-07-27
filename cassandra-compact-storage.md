@@ -4,7 +4,7 @@
 时间：2015年7月23日  
 作者：mheffner  
   
-！（images/cassandra-compact-storage01）  
+!(images/cassandra-compact-storage01)  
   
 ## 本文概要  
   
@@ -139,7 +139,7 @@ INSERT INTO playlists_2 (id, song_id, title)
   
 为了比较这两种方式我们建立了两个表：一个使用默认存储格式而另一个使用了压缩存储。我们的架构和上面的播放列表相似：一个行关键字，在列关键字中有 2-3 个列，和单独一个值列。在几天时间内我们推入分段工作负载通过它--每次对两个表写入相同的行。下面是两个 sstables 中每一个的存储载入图表：  
   
-！（images/cassandra-compact-storage02）  
+!(images/cassandra-compact-storage02)  
   
 结果告诉我们，对我们的测试用例，无压缩存储将多需要大约 35% 的存储空间（并且任何额外的处理都需要如此）。这样就清楚地知道了在我们写入的数据卷当中，非压缩存储中 35% 的存储是没有被有效利用正常工作的。那么那里为什么会有一个选项？  
   
