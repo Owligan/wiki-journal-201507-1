@@ -147,6 +147,7 @@ cqlsh:Metrics> CREATE TABLE playlists_3 (   id uuid,   song_id uuid,
 Bad Request: COMPACT STORAGE with composite PRIMARY KEY allows no more than one column not part of the PRIMARY KEY (got: title, artist)
 ```
   
+  
 如果在你的数据模式中需要更多的列值，你有两个选择：不使用压缩存储，或者将他们序列化成单一列数据值，比如 Json，ProtoBuf，Avro等。在那样的数据模式下更新列将不得不从一侧采取操作并必须在你的操作中不可分。考虑到你将不能利用 Cassandra 的轻量级交易进行更新这一点是非常重要的。对我们自己的测试用例来说，我们使用了 Json 和 ProtoBuf 数据团，因为我们的数据模式是只添加的。  
   
 ### 架构灵活性  
