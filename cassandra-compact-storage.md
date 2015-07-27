@@ -1,5 +1,15 @@
 # 理解 Cassandra 压缩储存的作用  
-## 介绍  
+  
+文章来源：http://blog.librato.com/posts/cassandra-compact-storage?utm_campaign=social-blog-posts&utm_content=cassandra-compact-storage&utm_medium=social&utm_source=hackernews  
+时间：2015年7月23日  
+作者：mheffner  
+  
+## 关于本文  
+  
+本文简单介绍了 Cassandra 上时间序列的存储，引入了压缩存储的概念并将压缩存储和非压缩存储方式用简单的例子进行了对比，得出了非压缩存储会消耗更多的存储空间。  
+  
+## 文章内容  
+
 在 Librato，我们对时间序列的储存主要是应用我们一直在研发的自定义架构所建立的 Apache Cassandra。关于它我们之前已经写到并呈现过几次。在 Cassandra 上我们既存储真实的时间序列也存储历史汇总时间序列。Cassandra 存储节点在我们的基础设施中占有最大的足迹因而这些节点驱动着我们的成本开支，所以我们一直在寻找方式来改进我们数据的效率。  
   
 作为我们正在进行的效率改进和后台功能研发的部分，我们最近花时间重新评估了我们的存储架构。自 Cassandra 0.8.x 版本的早些时候以来，我们的架构一直被建立在 Thrift APIs 的内容之上，并且无论何时当我们竖起一个新环路，我们使用‘节点工具’命令来移动它。我们一直都在紧密的跟随 CQL 的发展并且已经将我们的读取路径的部分在 2.0.x 版本中移动到了新的本地接口。甚至，我们想要更进一步关注使用本地 CQL 接口完全构造我们的架构转移（创建 CQL 表，或者他们所称的“列族”）。  
