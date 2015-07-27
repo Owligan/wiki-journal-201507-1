@@ -1,1 +1,5 @@
-# Understanding the Impact of Cassandra Compact Storage
+# 理解 Cassandra 压缩储存的影响  
+## 介绍  
+在 Librato，我们对时间序列的主要储存是应用了我们一直在研发的自定义架构所建立的 Apache Cassandra。关于它我们之前已经写到并呈现过几次。在 Cassandra 上我们既存储真实的时间序列也存储历史汇总时间序列。Cassandra 存储节点在我们的基础设施中占有最大的足迹因而这些节点驱动着我们的成本开支，所以我们一直在寻找方式来改进我们数据的效率。  
+  
+作为我们正在进行的效率改进和后台功能研发的部分，我们最近花时间重新评估了我们的存储架构
