@@ -17,4 +17,22 @@
 ## CQL 数据分布  
   
 那么让我们研究一下一个 CQL 表的数据分布是什么样的。我们将以一个简化过的例子开始，它来自用 Cassandra 建立一项音乐服务的教程指南。我们已经用一个<id，song_id>的指针把表减少到只有一个 id，音乐 id 和歌曲名称。  
+  
+```
+CREATE TABLE playlists_1 (   id uuid,   song_id uuid, title text,
+PRIMARY KEY  (id, song_id )
+);
 
+INSERT INTO playlists_1 (id, song_id, title)
+
+  VALUES (62c36092-82a1-3a00-93d1-46196ee77204,
+  7db1a490-5878-11e2-bcfd-0800200c9a66,
+  'Ojo Rojo');
+
+INSERT INTO playlists_1 (id, song_id, title)
+  VALUES (444c3a8a-25fd-431c-b73e-14ef8a9e22fc,
+  aadb822c-142e-4b01-8baa-d5d5bdb8e8c5,
+  'Guardrail');
+```
+  
+现在
