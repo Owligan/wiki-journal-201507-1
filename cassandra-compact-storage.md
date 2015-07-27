@@ -78,4 +78,49 @@ $ sstable2json Metrics/playlists_1/*Data*
   
 ## 使用压缩存储的同一个表分布  
   
-让我们来比较一下
+让我们来比较一下使用压缩存储选项的同一个表，再看看同一排的存储格式看起来是什么样。  
+  
+```
+CREATE TABLE playlists_2 (   id uuid,   song_id uuid, title text,
+PRIMARY KEY  (id, song_id )
+) WITH COMPACT STORAGE;
+
+INSERT INTO playlists_2 (id, song_id, title)
+  VALUES (62c36092-82a1-3a00-93d1-46196ee77204,
+  7db1a490-5878-11e2-bcfd-0800200c9a66,
+  'Ojo Rojo');
+
+INSERT INTO playlists_2 (id, song_id, title)
+  VALUES (444c3a8a-25fd-431c-b73e-14ef8a9e22fc,
+  aadb822c-142e-4b01-8baa-d5d5bdb8e8c5,
+  'Guardrail');
+
+[
+    {
+        "columns": [
+            [
+                "7db1a490-5878-11e2-bcfd-0800200c9a66",
+                "Ojo Rojo",
+                1436972070334000
+            ]
+        ],
+        "key": "62c3609282a13a0093d146196ee77204"
+    },
+    {
+        "columns": [
+            [
+                "aadb822c-142e-4b01-8baa-d5d5bdb8e8c5",
+                "Guardrail",
+                1436972071215000
+            ]
+        ],
+        "key": "444c3a8a25fd431cb73e14ef8a9e22fc"
+    }
+]
+```
+  
+和名字所代表的一样，存储格式确实更加紧凑了。对同一排现在只有单独一个列同时这一列并不包括列的字符串名。如果你只看原始表数据这样会描述不充分，但是你可以结合架构一起来定义余下列的名字。  
+  
+## 从长远看这会是什么样的？  
+  
+正如你从所看到的一样
